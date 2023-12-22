@@ -5,7 +5,13 @@
   - A Google Task list called "Remarkable"
 
 # Running
+`py -m venv venv`
+
+`pip install -r requirements.txt`
+
 `main.py run`
+
+_You can also do `main.py pull` or `main.py push` to only run one action_
 
 It _should_ walk you through the initial setup (pairing with Remarkable Cloud and getting Google tokens)
 
