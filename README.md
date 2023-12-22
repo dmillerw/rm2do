@@ -12,6 +12,16 @@ It _should_ walk you through the initial setup (pairing with Remarkable Cloud an
 
 If that doesn't work it, download manually and throw it in `bin/rmapi[.exe]`
 
+---
+
+Run for the first time (after completing all the authentication steps)
+
+It will pull all tasks from a Google Task list called "Remarkable" and put them into a PDF. Internally it also stores a reference to the Task ID and the coordinates of the cooresponding checkbox. This is then pushed to Cloud
+
+When pulling, it will pull the file back down from Cloud and read through all the pen marks, looking for any that intersect the defined checkboxes. Any tasks that do are marked as complete.
+
+The PDF is then re-generated using the latest list of tasks, and the cycle repeats
+
 # Todo
 
 _In no particular order_
