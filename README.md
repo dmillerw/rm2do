@@ -2,6 +2,7 @@
 # Requirements
 - Remarkable Cloud
 - Google API Access (specifically Google Tasks)
+  - A Google Task list called "Remarkable"
 
 # Running
 `main.py run`
