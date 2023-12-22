@@ -3,6 +3,7 @@
 - Remarkable Cloud
 - Google API Access (specifically Google Tasks)
   - A Google Task list called "Remarkable"
+- Python 3.12 (maybe? haven't tried any other versions)
 
 # Running
 `py -m venv venv`
