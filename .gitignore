@@ -1,0 +1,9 @@
+.idea/
+bin/
+config/
+output/
+temp/
+
+*.pdf
+*.zip
+*.json

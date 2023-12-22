@@ -1,0 +1,9 @@
+google-api-python-client==2.111.0
+google-auth==2.25.2
+google-auth-oauthlib==1.2.0
+requests==2.31.0
+dataclasses-json==0.6.3
+reportlab==4.0.8
+click==8.1.7
+rmscene==0.5.0
+rmapy==0.3.1
