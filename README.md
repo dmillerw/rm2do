@@ -45,3 +45,11 @@ _In no particular order_
 - Markup on tasks (saving some of the surrounding drawing and attaching to the generated PDF)
 - Actions? Highlight to make a priority, strike through to complete
 - Other todo backends
+- Task creation through OCR
+  - Though from what I see these days, handwriting OCR is _tricky_ to say the least
+- Ability to run as a service (watching for changes instead of manually running)
+- Somehow get around having to use Remarkable Cloud
+  - It's slow, I don't like it
+  - RM2 also has an interesting quirk where deleting a file will not reflect on the device until refreshed... but adding a file does. So you get duplicates until you refresh
+  - You also ahve to close the file for it to sync and refresh, a slow process
+    - This one is harder to get around since it's fundementally how `xochitl` works, but still... food for thought
