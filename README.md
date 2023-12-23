@@ -1,16 +1,25 @@
 ﻿# rm2do
-# Requirements
+
+## Requirements
+
 - Remarkable Cloud
 - Google API Access (specifically Google Tasks)
   - A Google Task list called "Remarkable"
 - Python 3.12 (maybe? haven't tried any other versions)
+  - Using [asdf](https://asdf-vm.com/guide/getting-started.html):
 
-# Running
-`py -m venv venv`
+    ```bash
+    asdf install
+    ```
 
-`pip install -r requirements.txt`
+## Running
 
-`main.py run`
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python main.py run
+```
 
 _You can also do `main.py pull` or `main.py push` to only run one action_
 
@@ -30,7 +39,7 @@ When pulling, it will pull the file back down from Cloud and read through all th
 
 The PDF is then re-generated using the latest list of tasks, and the cycle repeats
 
-# Todo
+## TODO
 
 _In no particular order_
 
@@ -40,7 +49,7 @@ _In no particular order_
 - Task comparison (don't regenerate if nothing has changed)
 - Better documentation/comments
 
-## Features
+### Features
 
 - Prettier PDF
 - Markup on tasks (saving some of the surrounding drawing and attaching to the generated PDF)
