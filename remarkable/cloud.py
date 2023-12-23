@@ -73,15 +73,8 @@ def validate_rmapi_binary() -> bool:
 
 
 def download_rmapi_binary() -> bool:
-    if os.path.exists(get_bin_file("rmapi_failed")):
-        print("Skipping attempt to download RMAPI, due to a past failed attempt")
-        return False
-
     archive = get_archive_name()
     if archive == "":
-        with open(get_bin_file("rmapi_failed"), "w") as f:
-            f.write("0")
-
         print("Wasn't able to determine the appropriate version to download")
         return False
 
@@ -99,10 +92,6 @@ def download_rmapi_binary() -> bool:
             os.remove(archive_file)
 
             return True
-
-    print(f"Wasn't able to find a release that matches the version request: {archive}")
-    with open(get_bin_file("rmapi_failed"), "w") as f:
-        f.write("0")
 
     return False
 
