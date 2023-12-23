@@ -1,4 +1,4 @@
-# rm2do
+﻿# rm2do
 
 ## Requirements
 
@@ -16,6 +16,7 @@
 
 ```bash
 python -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
 python main.py run
 ```
