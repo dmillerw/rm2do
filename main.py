@@ -7,9 +7,11 @@ from typing import List, Dict
 import click
 from rmscene import read_blocks, SceneLineItemBlock
 
+import util.func
 from backend.google import get_credentials, mark_complete, get_google_tasks
 from pdf import create_pdf
-from remarkable.cloud import download_file, CloudAuth, upload_file
+from remarkable.cloud import download_file, CloudAuth, upload_file, validate_rmapi_binary_exists, get_archive_name, \
+    download_rmapi_binary, RmApiDownloadResponse, validate_rmapi_binary
 from remarkable.notebook import get_draw_points
 from util.classes import TaskData, XYCoordinate
 from util.constants import RM_LETTER_WIDTH, RM_LETTER_HEIGHT, TEMP_DIRECTORY
@@ -102,8 +104,31 @@ def pull():
 
 
 @click.command()
-@click.argument('mode', type=click.Choice(['run', 'push', 'pull']))
+@click.argument('mode', type=click.Choice(['run', 'push', 'pull', 'setup-only']))
 def run(mode):
+    util.func.ensure_directories_exist()
+
+    if not validate_rmapi_binary_exists():
+        click.echo(f"Didn't find bin/rmapi, will try to download")
+        download_response = download_rmapi_binary()
+
+        if download_response == RmApiDownloadResponse.MissingArchitecture:
+            click.echo("Wasn't able to find a version of rmapi that fits your system architecture")
+            click.echo("If you believe this is in error, download it manually and place into 'bin/rmapi'")
+            return
+
+        if download_response == RmApiDownloadResponse.MissingFile:
+            click.echo("We determined a version to download, but wasn't able to find it in the latest GitHub release")
+            click.echo(f"Looked for '{get_archive_name()}'")
+            click.echo("If you believe this is in error, download it manually and place into 'bin/rmapi'")
+            return
+
+        if not validate_rmapi_binary():
+            click.echo("rmapi was retrieved, but isn't executing correctly")
+            return
+
+        click.echo("Success! rmapi successfully retrieved and functioning")
+
     # Ensure Google auth is setup correctly
     if not os.path.exists(get_config_file("credentials.json")):
         click.echo("You're missing the required 'credentials.json' file for Google Authentication")
