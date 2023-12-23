@@ -2,6 +2,7 @@ import os.path
 import platform
 import shutil
 import subprocess
+from enum import Enum
 from pathlib import Path
 from subprocess import CompletedProcess
 from typing import List
@@ -12,6 +13,12 @@ from rmapy.api import Client
 from remarkable.classes import RMCloudFile
 from util.constants import BIN_DIRECTORY
 from util.func import get_bin_file
+
+
+class RmApiDownloadResponse(Enum):
+    MissingArchitecture = 0
+    MissingFile = 1
+    Success = 2
 
 
 class CloudAuth:
@@ -72,11 +79,11 @@ def validate_rmapi_binary() -> bool:
     return True
 
 
-def download_rmapi_binary() -> bool:
+def download_rmapi_binary() -> RmApiDownloadResponse:
     archive = get_archive_name()
     if archive == "":
         print("Wasn't able to determine the appropriate version to download")
-        return False
+        return RmApiDownloadResponse.MissingArchitecture
 
     latest_version = requests.get("https://api.github.com/repos/juruen/rmapi/releases/latest",
                                   headers={"X-GitHub-Api-Version": "2022-11-28"}).json()
@@ -91,9 +98,10 @@ def download_rmapi_binary() -> bool:
             shutil.unpack_archive(archive_file, BIN_DIRECTORY)
             os.remove(archive_file)
 
-            return True
+            return RmApiDownloadResponse.Success
 
-    return False
+    print(f"Wasn't able to find a release that matches the version request: {archive}")
+    return RmApiDownloadResponse.MissingFile
 
 
 def invoke_rmapi(args: List[str]) -> CompletedProcess[bytes]:
